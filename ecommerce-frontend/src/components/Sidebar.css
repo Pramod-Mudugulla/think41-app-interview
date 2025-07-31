@@ -1,0 +1,53 @@
+/* src/components/Sidebar.css */
+.sidebar {
+  width: 220px;
+  background-color: #f4f4f4;
+  padding: 1rem;
+  transition: width 0.3s ease;
+  border-right: 1px solid #ccc;
+  height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+  padding: 1rem 0.5rem;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.collapse-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.sidebar-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.sidebar-list li {
+  margin-bottom: 0.8rem;
+}
+
+.sidebar-list a {
+  text-decoration: none;
+  color: #333;
+  padding: 0.4rem 0.6rem;
+  display: block;
+  border-radius: 4px;
+}
+
+.sidebar-list a:hover,
+.sidebar-list a.active {
+  background-color: #e0e0e0;
+  font-weight: bold;
+}

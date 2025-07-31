@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from .models import Product
-from .serializers import ProductSerializer
-from rest_framework.decorators import api_view
+from .models import Product, Department
+from django.shortcuts import get_object_or_404
+from .serializers import ProductSerializer, DepartmentSerializer
+from rest_framework.decorators import api_view, APIView
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 
@@ -42,3 +43,26 @@ def product_detail(request, pk):
             {"error": "Product not found."},
             status=status.HTTP_404_NOT_FOUND
         )
+
+class DepartmentListView(APIView):
+    def get(self, request):
+        departments = Department.objects.all()
+        serializer = DepartmentSerializer(departments, many=True)
+        return Response(serializer.data)
+
+class DepartmentDetailView(APIView):
+    def get(self, request, pk):
+        department = get_object_or_404(Department, pk=pk)
+        serializer = DepartmentSerializer(department)
+        return Response(serializer.data)
+
+class DepartmentProductsView(APIView):
+    def get(self, request, pk):
+        department = get_object_or_404(Department, pk=pk)
+        products = Product.objects.filter(department=department)
+
+        paginator = PageNumberPagination()
+        paginated_products = paginator.paginate_queryset(products, request)
+        serializer = ProductSerializer(paginated_products, many=True)
+
+        return paginator.get_paginated_response(serializer.data)

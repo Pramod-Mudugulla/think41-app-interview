@@ -38,7 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'products',  # Assuming 'products' is the name of your app
+    'rest_framework', 
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'PAGE_QUERY_PARAM': 'page',
+    'PAGE_SIZE_QUERY_PARAM': 'page_size',  # allows ?page_size=50
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
